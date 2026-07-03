@@ -73,7 +73,17 @@ Weak objectives produce weak courses — you cannot design practice for "underst
 Read `references/course-blueprint.md` before writing any lesson — it defines the
 canonical chapter flow this skill follows.
 
-### Step 3 — Write lessons using the canonical flow
+### Step 3 — Prove the format with one sample lesson
+
+Before building the whole course, write ONE representative lesson (pick the most
+central capability, not the easiest) and show it to the user with a one-line note:
+"this is the format every lesson will follow — happy with the depth, tone, and
+practice style?". Why this step exists: it moves the user's first payoff from
+"30+ minutes in" to "5 minutes in", and it catches style/depth mismatches when
+fixing them costs one lesson, not a whole course. Adjust on feedback, then proceed.
+Skip only when the user explicitly asked for a fully autonomous run — and say so.
+
+### Step 4 — Write lessons using the canonical flow
 
 Every lesson follows the attempt-first sequence (full detail and rationale in
 `references/course-blueprint.md`):
@@ -100,7 +110,7 @@ Two writing rules are non-negotiable:
   at least one contrast (different context, or a look-alike case where the principle
   does NOT apply). One vivid example without contrast teaches surface details.
 
-### Step 4 — Design practice and assessment
+### Step 5 — Design practice and assessment
 
 Read `references/practice-design.md` for the practice format matrix, question design,
 distractor rules, and feedback structure. Core constraints:
@@ -114,7 +124,7 @@ distractor rules, and feedback structure. Core constraints:
 - Some tasks must NOT name the method — in real work, problems don't arrive labeled with
   the chapter title.
 
-### Step 5 — Engineer retention
+### Step 6 — Engineer retention
 
 - Schedule spaced reviews: same day → +1 day → +7 days → +21–30 days, scaled to course
   length. Every review requires retrieval, not rereading.
@@ -123,7 +133,7 @@ distractor rules, and feedback structure. Core constraints:
   modules, including at least one integration task where the method is not named.
 - Emit a `review-schedule.md` so the learner knows when to return and to what.
 
-### Step 6 — Quality gate
+### Step 7 — Quality gate
 
 Before delivering, audit the whole course against the author checklist in
 `references/quality-rubrics.md`. Fix every violation — the checklist items are cheap to
@@ -132,7 +142,7 @@ anti-patterns (same file) survived: recognition-only quizzes, answers visible be
 attempts, terms used before definition, single examples without contrast, practice only
 at the end.
 
-### Step 7 — Deliver
+### Step 8 — Deliver
 
 Default output structure (adapt if the user asked for a different format):
 
@@ -154,13 +164,21 @@ In `00-syllabus.md`, tell the learner *how* to use the course: attempt before pe
 rate confidence, follow the review schedule, treat errors as material. Learners default
 to rereading — the course must teach them not to.
 
-## When the course will be studied with an AI tutor
+## Study mode — running a course as the tutor
 
-If the user plans to run the course with an AI assistant (grading open cases, generating
-variations), embed the guardrails from `references/practice-design.md` § "AI as coach":
-give the AI the goal, context, rubric, and quality-level examples; require it to cite
-specific fragments of the learner's answer; and treat its feedback as a hypothesis, not
-a verdict. AI feedback without a rubric drifts toward generic praise.
+This skill also RUNS courses, not only writes them. When the user says "help me study
+this course", "quiz me", "run my review session", or points at a course produced by this
+skill (or any structured material), switch to tutor mode and follow the session protocol
+in `references/study-mode.md`: retrieval first, confidence before checking, feedback
+after the attempt, calibration log, and the spaced schedule as the source of what's due.
+After delivering a new course (Step 8), offer this explicitly: "Want me to run your
+first study session now?" — the course only works if somebody studies it.
+
+When the course will be graded by an AI (open cases, variations), embed the guardrails
+from `references/practice-design.md` § "AI as coach": give the AI the goal, context,
+rubric, and quality-level examples; require it to cite specific fragments of the
+learner's answer; and treat its feedback as a hypothesis, not a verdict. AI feedback
+without a rubric drifts toward generic praise.
 
 ## Scaling to the request
 

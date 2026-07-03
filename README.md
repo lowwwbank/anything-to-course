@@ -4,7 +4,7 @@
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg) ![Agent Skills](https://img.shields.io/badge/Agent%20Skills-compatible-blue.svg) ![Works with](https://img.shields.io/badge/works%20with-Claude%20Code%20%C2%B7%20Claude.ai%20%C2%B7%20Codex%20%C2%B7%20any%20Agent%20Skills%20tool-8A2BE2.svg)
 
-An [Agent Skill](https://agentskills.io) that turns documents, notes, books, transcripts, slides, codebases — or just a topic — into a complete self-study course. Works in Claude Code, Claude.ai, OpenAI Codex, and every other tool that supports the open Agent Skills standard.
+An [Agent Skill](https://agentskills.io) that turns documents, notes, books, transcripts, slides, codebases — or just a topic — into a complete self-study course, then runs your study sessions as a tutor. Built and tested on Claude Code; packaged to the open Agent Skills standard supported by OpenAI Codex, Gemini CLI, and 30+ other tools.
 
 ---
 
@@ -35,7 +35,13 @@ your-course/
 └── review-schedule.md        # spaced repetition plan (+1d, +7d, +30d)
 ```
 
-Every lesson follows an 11-step canonical flow where the learner **attempts before reading the explanation**, retrieves from memory before seeing options, rates confidence before checking, and gets feedback that explains the *cause* of the error and demands a retry. See a real excerpt in [`examples/sample-lesson.md`](examples/sample-lesson.md).
+Every lesson follows an 11-step canonical flow where the learner **attempts before reading the explanation**, retrieves from memory before seeing options, rates confidence before checking, and gets feedback that explains the *cause* of the error and demands a retry.
+
+## See it before you run it
+
+**[`examples/example-course/sql-for-analysts/`](examples/example-course/sql-for-analysts/)** is a complete, unedited course produced by this skill — syllabus, two modules, checkpoints, separated answer files, and a review schedule. Open any lesson and compare it with what "make me a course on SQL" gives you in a raw chat: the difference *is* the skill. A one-file taste: [`examples/sample-lesson.md`](examples/sample-lesson.md).
+
+The skill also shows you a **sample lesson first** on every run — one representative lesson in ~5 minutes for your sign-off on depth and tone — before building the full course.
 
 ## Quick start
 
@@ -68,9 +74,11 @@ Place this folder in your agent's skills directory. The skill is plain `SKILL.md
 1. **Intake** — audience, prior knowledge, target capabilities, time budget, stakes.
 2. **Capabilities, not topics** — the material becomes 3–8 observable outcomes ("given X, the learner can Y to standard Z"). Content that serves no capability is cut.
 3. **Dependency mapping** — modules ordered by what-builds-on-what, not by the source's table of contents. One lesson = one capability.
-4. **Lessons via the canonical flow** — real problem → learner attempt → principle → worked example (with the *why* of each step) → contrasting case → self-explanation → completion task → independent task → feedback → retry → exit ticket.
-5. **Retention engineering** — exit tickets reach back to earlier lessons, cumulative checkpoints interleave modules, and `review-schedule.md` schedules retrieval at +1 day, +7 days, +21–30 days.
-6. **Quality gate** — the finished course is audited against a 40-item author checklist and an anti-pattern list before delivery.
+4. **Sample lesson first** — one representative lesson for your sign-off before the full build; style mismatches cost one lesson to fix, not a course.
+5. **Lessons via the canonical flow** — real problem → learner attempt → principle → worked example (with the *why* of each step) → contrasting case → self-explanation → completion task → independent task → feedback → retry → exit ticket.
+6. **Retention engineering** — exit tickets reach back to earlier lessons, cumulative checkpoints interleave modules, and `review-schedule.md` schedules retrieval at +1 day, +7 days, +21–30 days.
+7. **Quality gate** — the finished course is audited against a 40-item author checklist and an anti-pattern list before delivery.
+8. **Study mode** — afterwards, the same skill runs your sessions as a tutor: retrieval-first quizzing, confidence calibration, spaced reviews from the schedule, and a study log ([`references/study-mode.md`](references/study-mode.md)).
 
 ## The science
 
@@ -119,9 +127,11 @@ anything-to-course/
 │   ├── learning-science.md         # 18 principles + research citations
 │   ├── course-blueprint.md         # canonical course/module/lesson templates
 │   ├── practice-design.md          # practice matrix, question & feedback design
-│   └── quality-rubrics.md          # author checklist, case rubric, anti-patterns
+│   ├── quality-rubrics.md          # author checklist, case rubric, anti-patterns
+│   └── study-mode.md               # tutor protocol: sessions, calibration log
 ├── examples/
-│   └── sample-lesson.md            # excerpt of a generated lesson
+│   ├── example-course/             # complete generated course (SQL for analysts)
+│   └── sample-lesson.md            # one-file lesson excerpt
 └── README.md
 ```
 
@@ -133,7 +143,7 @@ The skill uses [progressive disclosure](https://agentskills.io/specification): a
 
 **What about non-English source material?** Fine. The skill's instructions are English; the generated course follows the language you ask for.
 
-**Can it run the course too, not just write it?** Yes — courses ship with AI-tutor guardrails (rubrics, citation requirements, "feedback is a hypothesis" rules), so you can study interactively with the same agent afterwards.
+**Can it run the course too, not just write it?** Yes — say "run my study session" and the skill turns tutor: retrieval-first quizzing, confidence calibration, spaced reviews, and a study log, with hard rules like "no answers before an attempt" ([protocol](references/study-mode.md)).
 
 **How long a course can it build?** From a 1-hour primer to a multi-week program. Light requests keep the core invariants (attempt-first, retrieval practice, hidden answers) and drop the heavy apparatus (cumulative checkpoints, long review schedules).
 

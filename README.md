@@ -4,9 +4,51 @@
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg) ![Agent Skills](https://img.shields.io/badge/Agent%20Skills-compatible-blue.svg) ![Works with](https://img.shields.io/badge/works%20with-Claude%20Code%20%C2%B7%20Claude.ai%20%C2%B7%20Codex%20%C2%B7%20any%20Agent%20Skills%20tool-8A2BE2.svg)
 
-An [Agent Skill](https://agentskills.io) that turns documents, notes, books, transcripts, slides, codebases — or just a topic — into a complete self-study course, then runs your study sessions as a tutor. Built and tested on Claude Code; packaged to the open Agent Skills standard supported by OpenAI Codex, Gemini CLI, and 30+ other tools.
+<p align="center">
+  <img src="assets/social-preview.jpg" alt="anything-to-course: turn source material into a self-study course workflow" width="900">
+</p>
+
+A universal AI agent skill that turns documents, notes, books, transcripts, slides, codebases — or just a topic — into a complete self-study course, then runs your study sessions as a tutor. Built and tested on Claude Code; designed for Claude.ai, OpenAI Codex, Gemini CLI, Cursor, and any agent that can read a `SKILL.md` folder.
 
 ---
+
+## What this is
+
+`anything-to-course` is a portable course-design workflow for AI agents. It does not just summarize source material. It turns material into observable capabilities, lessons, practice, feedback, checkpoints, and a spaced review plan.
+
+```
+Source material       Capability map       Course build          Study mode
+      |                    |                    |                    |
+      v                    v                    v                    v
+Docs, notes,  -->  outcomes, gaps  -->  lessons, tasks,  -->  retrieval,
+slides, code       prerequisites        hidden answers        calibration,
+or a topic          module order         review schedule       tutoring
+```
+
+## Quick demo
+
+Ask your agent:
+
+```text
+Use the anything-to-course skill.
+Turn ./docs/sql-handbook into a 3-week self-study course for analysts
+who know Excel but have never written SQL.
+Make learners practice before reading answers.
+```
+
+You get a course package with a syllabus, modules, lessons, hidden answer files, checkpoints, and a review schedule:
+
+```text
+sql-for-analysts/
+├── 00-syllabus.md
+├── modules/
+│   ├── 01-filtering-rows/
+│   └── 02-aggregation/
+├── answers/
+└── review-schedule.md
+```
+
+See the generated example in [`examples/example-course/sql-for-analysts/`](examples/example-course/sql-for-analysts/).
 
 ## The problem
 
@@ -43,7 +85,15 @@ Every lesson follows an 11-step canonical flow where the learner **attempts befo
 
 The skill also shows you a **sample lesson first** on every run — one representative lesson in ~5 minutes for your sign-off on depth and tone — before building the full course.
 
-## Quick start
+## Prerequisites
+
+- An AI agent that can read local files: Claude Code, Claude.ai / Claude Desktop, OpenAI Codex, Gemini CLI, Cursor, or a similar tool.
+- Git, if you want to clone the repository.
+- Source material: docs, notes, PDFs, transcripts, slides, code, links you paste in, or just a topic brief.
+
+No package manager, database, API key, or network access is required by the skill itself.
+
+## Install
 
 ### Claude Code
 
@@ -62,12 +112,35 @@ Zip this folder and upload it under **Settings → Capabilities → Skills**, th
 ### OpenAI Codex CLI
 
 ```bash
-git clone https://github.com/lowwwbank/anything-to-course.git ~/.codex/skills/anything-to-course
+mkdir -p ~/.agents/skills
+git clone https://github.com/lowwwbank/anything-to-course.git ~/.agents/skills/anything-to-course
 ```
 
-### Any other Agent Skills tool
+### Repo-scoped install
 
-Place this folder in your agent's skills directory. The skill is plain `SKILL.md` + markdown references — no scripts, no dependencies, no network access required.
+If you want a project-local skill, vendor it inside the current repo:
+
+```bash
+mkdir -p .agents/skills
+git clone https://github.com/lowwwbank/anything-to-course.git .agents/skills/anything-to-course
+```
+
+### Cursor, Gemini CLI, or any other agent
+
+Place this folder wherever your agent can read it, then tell the agent to use `SKILL.md`. The skill is plain markdown: no scripts, no dependencies, no network access required.
+
+### Copy-paste only
+
+If your agent does not support local skill folders, copy the contents of [`SKILL.md`](SKILL.md) into the agent's custom instructions or prompt window, then attach or paste your source material.
+
+## Run your first course
+
+```text
+Use the anything-to-course skill.
+Turn <your source material> into a self-study course for <audience>.
+Target outcome: learners should be able to <observable capability>.
+Time budget: <duration>.
+```
 
 ## How it works
 
